@@ -174,6 +174,11 @@
       .badge svg{width:13px;height:13px;flex:none}
       .badge.top{background:var(--red);color:#fff}
       .won-tag{display:inline-block;background:var(--green-soft);color:var(--green);font-weight:700;font-size:.75rem;padding:2px 8px;border-radius:999px;margin-left:4px;white-space:nowrap}
+      .pro-link{background:none;border:0;padding:0;font:inherit;font-weight:800;color:var(--red-dark);cursor:pointer;text-decoration:underline;text-underline-offset:2px;text-align:left}
+      .pro-link:hover{color:var(--red)}
+      .bid-as{display:flex;gap:11px;align-items:center;background:var(--surface-2);border-radius:10px;padding:11px 13px}
+      .bid-as .avatar{width:40px;height:40px;font-size:.9rem;flex:none}
+      .save-btn[aria-pressed="true"]{background:var(--green-soft);color:var(--green);border-color:var(--green)}
       .review{border-top:1px dashed var(--line);padding:12px 0 2px;margin-top:12px}
       .review p{margin:4px 0;color:var(--muted)}
       .review b{font-size:.95rem}
@@ -313,7 +318,7 @@
           <div class="wrap">
             <span class="tagline-chip">Live in Dallas–Fort Worth</span>
             <h1>Post the job. Local pros <span class="hl">bid.</span><br />You pick the winner.</h1>
-            <p class="lede">Homeowners post home work with photos and a price — or open it for quotes. Pros can only like it, bid on it, or ask privately. No public haggling.</p>
+            <p class="lede">Homeowners post home work with photos and a price — or open it for quotes. Pros can only like it or bid on it. No public haggling, no cold messages — private contact opens only for the pro whose bid wins.</p>
             <div class="hero-ctas">
               <button type="button" class="btn btn-red" data-open-post>Post a job — free</button>
               <a class="btn btn-navy" href="#pros">Browse local pros</a>
@@ -330,13 +335,13 @@
             <div class="stat"><div class="num">$0</div><div class="lbl">for homeowners to post a job</div></div>
             <div class="stat"><div class="num">DFW</div><div class="lbl">area #1 — Houston, Austin &amp; San Antonio next</div></div>
             <div class="stat"><div class="num">★</div><div class="lbl">every pro rated by homeowners after the job</div></div>
-            <div class="stat"><div class="num">3 <em>moves</em></div><div class="lbl">on every post: Like · Bid Now · Ask privately</div></div>
+            <div class="stat"><div class="num">2 <em>moves</em></div><div class="lbl">on every post: Like · Bid Now — that's it</div></div>
           </div>
         </div>
         <div class="how-strip">
           <div class="wrap how-strip-in">
             <div class="hs"><span class="n">1</span><p><b>Post the job</b> — photos, your area, your price or open for quotes. Free for homeowners.</p></div>
-            <div class="hs"><span class="n">2</span><p><b>Pros bid privately</b> — Like, Bid Now, or Ask. No public haggling, no lead fees.</p></div>
+            <div class="hs"><span class="n">2</span><p><b>Pros bid privately</b> — Like or Bid Now, that's it. A pro can only contact you after their bid wins.</p></div>
             <div class="hs"><span class="n">3</span><p><b>Pick your winner</b> — compare bids and ratings, accept, and rate the work after.</p></div>
           </div>
         </div>
@@ -407,6 +412,7 @@
               <div id="featReviews"></div>
               <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
                 <button type="button" class="btn btn-red btn-sm" data-pro-msg="Marcus T. — Handyman">Ask Marcus privately</button>
+                <button type="button" class="btn btn-ghost btn-sm save-btn" data-save="marcus" aria-pressed="false">Save Marcus</button>
                 <a class="btn btn-ghost btn-sm" href="#feed">See the jobs he's bidding on</a>
               </div>
             </div>
@@ -524,6 +530,15 @@
                   <h3>Bids I've placed</h3>
                   <ul class="act-list" id="myBidsList"></ul>
                 </div>
+                <div class="dash-card" id="savedProsCard" style="display:none">
+                  <h3>Saved pros</h3>
+                  <ul class="act-list" id="savedProsList"></ul>
+                </div>
+                <div class="dash-card" id="bizContactsCard" style="display:none">
+                  <h3>Business contacts</h3>
+                  <p style="color:var(--muted);margin:0 0 6px">Customers who save your page become business contacts here — homeowners who liked your work and want you back.</p>
+                  <ul class="act-list" id="bizContactsList"></ul>
+                </div>
               </div>
             </div>
           </div>
@@ -541,7 +556,7 @@
           <p class="ctx">The whole agreement, in plain language — including exactly how DFW Job Bid makes money. Last updated October 25, 2026.</p>
           <div class="terms-body">
               <h3>The service</h3>
-              <p>DFW Job Bid is a platform where homeowners post work they need done, and handymen and companies (“pros”) respond with bids. Homeowners post a job — photos, a description, and their area — with either a stated price or a request for quotes. Pros may like a post, submit a bid, or contact the homeowner privately through the platform. DFW Job Bid is a marketplace connector only: the work contract is between the homeowner and the pro. Bearden Business Solutions, which operates DFW Job Bid, is not a party to that work, does not perform it, and does not guarantee its quality or completion.</p>
+              <p>DFW Job Bid is a platform where homeowners post work they need done, and handymen and companies (“pros”) respond with bids. Homeowners post a job — photos, a description, and their area — with either a stated price or a request for quotes. Pros may like a post or submit a bid; private contact with a homeowner through the platform opens only for the pro whose bid that homeowner accepts. DFW Job Bid is a marketplace connector only: the work contract is between the homeowner and the pro. Bearden Business Solutions, which operates DFW Job Bid, is not a party to that work, does not perform it, and does not guarantee its quality or completion.</p>
               <h3>Accounts</h3>
               <ul>
                 <li>You must create an account to post a job or bid. Keep your information accurate and your login private.</li>
@@ -676,7 +691,7 @@
             </div>
             <div class="form-err" id="postErr" role="alert"></div>
             <button class="btn btn-red" type="submit" style="width:100%">Post to the feed</button>
-            <p style="color:var(--muted);font-size:.88rem;margin:10px 0 0">Your post appears at the top of your area's feed right away, where pros can like it, bid on it, or ask you privately.</p>
+            <p style="color:var(--muted);font-size:.88rem;margin:10px 0 0">Your post appears at the top of your area's feed right away, where pros can like it or bid on it. Only the pro whose bid you accept can contact you privately.</p>
           </form>
         </div>
         <div class="modal-done" id="postDone">
@@ -706,7 +721,15 @@
               <label for="msgText">Message</label>
               <textarea id="msgText" rows="4" placeholder="Ask about access, timing, measurements — anything you need before bidding."></textarea>
             </div>
-            <div class="field">
+            <div class="field" id="bidAsField" style="display:none">
+              <label>Your page name — attached to this bid automatically</label>
+              <div class="bid-as">
+                <div class="avatar or" id="bidAsAvatar">YO</div>
+                <div style="line-height:1.3"><b id="bidAsName" style="font-family:Archivo"></b><br /><span style="color:var(--muted);font-weight:600;font-size:.88rem" id="bidAsSub"></span></div>
+                <button type="button" class="pro-link" id="bidAsProfile" style="margin-left:auto;flex:none">View profile</button>
+              </div>
+            </div>
+            <div class="field" id="bidNameField">
               <label for="bidName">Your pro name</label>
               <input id="bidName" type="text" placeholder="e.g. Marcus T. — Handyman" />
             </div>
@@ -719,6 +742,14 @@
           <p id="modalDoneText" style="color:var(--muted)"></p>
           <button class="btn btn-navy btn-sm" id="modalDoneBtn" type="button">Back to the feed</button>
         </div>
+      </div>
+    </div>
+
+    <!-- PRO PROFILE PAGE — opened by tapping a pro's name on a bid, a card, or the directory -->
+    <div class="modal-back" id="profileBack" role="dialog" aria-modal="true" aria-label="Pro profile">
+      <div class="modal">
+        <button class="x-btn" id="profileClose" aria-label="Close">✕</button>
+        <div id="profileBody"></div>
       </div>
     </div>
 
@@ -791,6 +822,7 @@
             price:null, priceType:"open", meta:["Electrical","Weekend preferred"], likes:17, bids:4 }
         ];
         var myBids = {};
+        var myBidInfo = {};
         var liked = {};
         var myPostIds = [];
         var currentArea = "dfw";
@@ -831,6 +863,16 @@
             var avHtml = avatarPhotos[p.id]
               ? '<div class="avatar up" data-avatar-up="' + p.id + '" role="button" tabindex="0" title="Tap to change the photo" aria-label="Change profile photo for ' + p.name + '"><img src="' + avatarPhotos[p.id] + '" alt="" />' + camSVG + '</div>'
               : '<div class="avatar up" data-avatar-up="' + p.id + '" role="button" tabindex="0" title="Tap to add a photo" aria-label="Add a profile photo for ' + p.name + '">' + p.initials + camSVG + '</div>';
+            var bidAttrib = "";
+            if(myBids[p.id]){
+              if(myBidInfo[p.id] && myBidInfo[p.id].mine){
+                bidAttrib = 'Bid placed as <button type="button" class="pro-link" data-profile="me">' + esc(myBidInfo[p.id].name) + '</button> — tap your name to see the profile &amp; rating history homeowners get · ';
+              } else if(myBidInfo[p.id]){
+                bidAttrib = 'Your bid as ' + esc(myBidInfo[p.id].name) + ' · ';
+              } else {
+                bidAttrib = 'Your bid · ';
+              }
+            }
             card.innerHTML =
               '<div class="post-head">' + avHtml +
               '<div class="who"><b>' + p.name + '</b><small>' + p.area + '</small></div>' +
@@ -838,12 +880,11 @@
               '<img class="photo" src="' + p.photo + '" alt="' + p.alt + '" loading="lazy" />' +
               '<div class="post-body"><h3>' + p.title + '</h3><p>' + p.desc + '</p>' +
               '<div class="price-row">' + priceChip + meta + '</div>' +
-              '<div class="my-bid' + (myBids[p.id] ? " show" : "") + '">Your bid: <span>' + (myBids[p.id] ? money0(myBids[p.id]) : "") + '</span> · ' + bidCount + ' bids so far</div>' +
+              '<div class="my-bid' + (myBids[p.id] ? " show" : "") + '">' + bidAttrib + '<span>' + (myBids[p.id] ? money0(myBids[p.id]) : "") + '</span> · ' + bidCount + ' bids so far</div>' +
               '</div>' +
               '<div class="post-actions">' +
                 '<button type="button" class="like-btn' + (liked[p.id] ? " liked" : "") + '" data-like="' + p.id + '" aria-pressed="' + !!liked[p.id] + '">' + heartSVG + ' Like · ' + likeCount + '</button>' +
                 '<button type="button" class="bidnow" data-bid="' + p.id + '">' + gavelSVG + ' Bid Now · ' + bidCount + '</button>' +
-                '<button type="button" data-msg="' + p.id + '">' + msgSVG + ' Ask privately</button>' +
               '</div>';
             grid.appendChild(card);
           });
@@ -889,6 +930,8 @@
         /* ---------- pro directory: reviews only count from jobs won via bid + completed ---------- */
         var BADGE_ICONS = {
           star:'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>',
+          shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.2 8.2-7 10-3.8-1.8-7-5-7-10V6z"/></svg>',
+          clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>',
           medal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="9" r="5"/><path d="M8.6 13.4 7 21l5-2.6L17 21l-1.6-7.6"/></svg>',
           repeat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M17 2.5l3 3-3 3"/><path d="M3 11V9.5a3 3 0 0 1 3-3h14"/><path d="M7 21.5l-3-3 3-3"/><path d="M21 13v1.5a3 3 0 0 1-3 3H4"/></svg>',
           check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.2 8.2-7 10-3.8-1.8-7-5-7-10V6z"/><path d="M9 12l2 2 4-4.5"/></svg>'
@@ -912,6 +955,13 @@
           if(st.n >= 3) out.push({ icon:"medal", cls:"", label:st.n + " Won-Job Reviews", title:"Badge earned: reviews collected from jobs won with a bid and completed on DFW Job Bid" });
           return out;
         }
+        function standingBadges(pro){
+          var out = [];
+          if(pro.level) out.push({ icon:"shield", cls: pro.level.indexOf("Premier") === 0 ? " top" : "", label: pro.level, title:"Service level on DFW Job Bid: " + pro.level });
+          if(pro.since) out.push({ icon:"clock", cls:"", label:"On DFW Job Bid since " + pro.since, title:"Time on the platform: a member of DFW Job Bid since " + pro.since });
+          return out;
+        }
+        function allBadges(pro){ return standingBadges(pro).concat(badgesFor(pro.reviews || [])); }
         function badgeHTML(badges){
           return badges.map(function(b){
             return '<span class="badge' + b.cls + '" title="' + b.title + '">' + BADGE_ICONS[b.icon] + b.label + '</span>';
@@ -935,17 +985,19 @@
           { stars:4, job:"Deck board replacement", who:"Tom H.", city:"Burleson", text:"Solid work. Finished a day later than quoted, but the deck is rock solid." },
           { stars:5, job:"Storm fence repair", who:"Sarah M.", city:"Fort Worth", text:"Posted Monday, fence standing by Wednesday. Fair bid, no upsell." }
         ];
+        var FEATURED_PRO = { id:"marcus", initials:"MT", or:true, name:"Marcus T. — Handyman", jobs:"214", resp:"~35 min", area:"Fort Worth",
+          trades:["General repairs","Fence & gates","Drywall","Fixtures & fans"], level:"Premier Pro", since:2025, reviews:FEATURED_REVIEWS };
         (function renderFeatured(){
           var st = statsFor(FEATURED_REVIEWS);
           document.getElementById("featRating").textContent = st.avg.toFixed(1);
           document.getElementById("featStars").setAttribute("aria-label", "Rated " + st.avg.toFixed(1) + " out of 5 from " + st.n + " reviews of won jobs");
           document.getElementById("featReviewCount").textContent = "· " + st.n + " reviews — all from won jobs";
-          document.getElementById("featBadges").innerHTML = badgeHTML(badgesFor(FEATURED_REVIEWS));
+          document.getElementById("featBadges").innerHTML = badgeHTML(allBadges(FEATURED_PRO));
           document.getElementById("featReviews").innerHTML = FEATURED_REVIEWS.map(reviewHTML).join("");
         })();
 
         var PROS = [
-          { initials:"DW", or:false, name:"Dana W. — Plumbing", jobs:"132", resp:"~1 hr", area:"Dallas · Oak Cliff",
+          { id:"dana", initials:"DW", or:false, name:"Dana W. — Plumbing", level:"Pro", since:2025, jobs:"132", resp:"~1 hr", area:"Dallas · Oak Cliff",
             trades:["Plumbing","Water heaters","Leak repair"],
             reviews:[
               { stars:5, job:"Kitchen drain re-pipe", who:"Paul G.", city:"Dallas", text:"Found the leak two other companies missed. Fair price, clean work." },
@@ -953,7 +1005,7 @@
               { stars:4, job:"Bathroom rough-in check", who:"Chris D.", city:"Irving", text:"Good work; took one extra trip for a part." },
               { stars:5, job:"Leak repair", who:"Paul G.", city:"Dallas", text:"Second time hiring Dana off the feed — fixed it the same day." }
             ] },
-          { initials:"RF", or:true, name:"Rigo F. — Rigo Fencing Co.", jobs:"98", resp:"~25 min", area:"Arlington",
+          { id:"rigo", initials:"RF", or:true, name:"Rigo F. — Rigo Fencing Co.", level:"Pro", since:2026, jobs:"98", resp:"~25 min", area:"Arlington",
             trades:["Fence & gates","Decks","Exterior repairs"],
             reviews:[
               { stars:5, job:"30 ft storm fence rebuild", who:"David R.", city:"Arlington", text:"Whole back fence rebuilt in two days. Crew left the yard spotless." },
@@ -962,7 +1014,7 @@
               { stars:5, job:"Privacy fence, 60 ft", who:"Steve K.", city:"Fort Worth", text:"Bid was mid-pack; the work was top of the list." },
               { stars:5, job:"Post replacement", who:"Lena W.", city:"Arlington", text:"Six posts swapped in an afternoon." }
             ] },
-          { initials:"PS", or:false, name:"Priya S. — Painting & Drywall", jobs:"167", resp:"~2 hrs", area:"Plano",
+          { id:"priya", initials:"PS", or:false, name:"Priya S. — Painting & Drywall", level:"Premier Pro", since:2025, jobs:"167", resp:"~2 hrs", area:"Plano",
             trades:["Interior painting","Drywall","Cabinets"],
             reviews:[
               { stars:5, job:"Two-bedroom repaint", who:"Nina P.", city:"Plano", text:"Lines are razor sharp and she patched every ding before painting." },
@@ -971,7 +1023,7 @@
               { stars:5, job:"Nursery repaint", who:"Nina P.", city:"Plano", text:"Booked Priya again for the nursery — done in a day, zero mess." },
               { stars:5, job:"Accent wall & trim", who:"Julia M.", city:"McKinney", text:"Precise, tidy, and the bid never moved." }
             ] },
-          { initials:"TE", or:true, name:"Tom E. — Electrical", jobs:"88", resp:"~45 min", area:"Fort Worth",
+          { id:"tom", initials:"TE", or:true, name:"Tom E. — Electrical", level:"Pro", since:2026, jobs:"88", resp:"~45 min", area:"Fort Worth",
             trades:["Fans & fixtures","Panels","Troubleshooting"],
             reviews:[
               { stars:5, job:"Ceiling fan installs ×3", who:"James T.", city:"Plano", text:"Swapped three fans and fixed a dead outlet in one trip." },
@@ -986,17 +1038,111 @@
           card.className = "pro-mini";
           card.innerHTML =
             '<div class="pro-top"><div class="avatar' + (pr.or ? " or" : "") + '">' + pr.initials + '</div>' +
-            '<div><b style="font-family:Archivo;font-size:1.08rem">' + pr.name + '</b><br />' +
+            '<div><button type="button" class="pro-link" data-profile="' + pr.id + '" style="font-family:Archivo;font-size:1.08rem">' + pr.name + '</button><br />' +
             '<span class="stars" aria-label="Rated ' + st.avg.toFixed(1) + ' out of 5 from ' + st.n + ' reviews of won jobs">★★★★★</span> <b>' + st.avg.toFixed(1) + '</b> <span style="color:var(--muted);font-weight:600">· ' + st.n + ' won-job reviews</span></div>' +
             '<span class="sample-tag">Sample pro</span></div>' +
             '<div class="pro-stats"><div><b>' + pr.jobs + '</b><small>jobs completed</small></div><div><b>' + pr.resp + '</b><small>avg. response</small></div><div><b>' + pr.area.split(" · ")[0] + '</b><small>service area</small></div></div>' +
             '<div class="trades">' + pr.trades.map(function(t){ return '<span class="meta-chip">' + t + '</span>'; }).join("") + '</div>' +
-            '<div class="badges" style="margin-top:12px">' + badgeHTML(badgesFor(pr.reviews)) + '</div>' +
+            '<div class="badges" style="margin-top:12px">' + badgeHTML(allBadges(pr)) + '</div>' +
             '<p style="font-family:Archivo;font-weight:800;font-size:.92rem;margin:16px 0 0">Latest won-job review</p>' +
             reviewHTML(pr.reviews[0]) +
-            '<div style="margin-top:14px"><button type="button" class="btn btn-red btn-sm" data-pro-msg="' + esc(pr.name) + '">Ask privately</button></div>';
+            '<div style="margin-top:14px;display:flex;gap:9px;flex-wrap:wrap"><button type="button" class="btn btn-navy btn-sm" data-profile="' + pr.id + '">View profile</button><button type="button" class="btn btn-ghost btn-sm save-btn" data-save="' + pr.id + '" aria-pressed="false">Save pro</button><button type="button" class="btn btn-red btn-sm" data-pro-msg="' + esc(pr.name) + '">Ask privately</button></div>';
           proDir.appendChild(card);
         });
+
+        /* ---------- pro profile pages + saving pros + business contacts ---------- */
+        var savedPros = {};
+        function myProProfile(){
+          if(!lastSignup || lastSignup.type !== "pro") return null;
+          var nm = lastSignup.biz || lastSignup.name;
+          var initials = nm.split(/\s+/).map(function(w){ return w.charAt(0); }).join("").slice(0,2).toUpperCase() || "YO";
+          return { id:"me", initials:initials, or:true, name:nm, jobs:"0", resp:"—", area:lastSignup.city,
+            trades:[lastSignup.trade], level:"Pro", since:2026, reviews:[], own:true };
+        }
+        function proById(id){
+          if(id === "marcus") return FEATURED_PRO;
+          if(id === "me") return myProProfile();
+          for(var i = 0; i < PROS.length; i++) if(PROS[i].id === id) return PROS[i];
+          return null;
+        }
+        var profileBack = document.getElementById("profileBack"),
+            profileBody = document.getElementById("profileBody");
+        function openProfile(pro){
+          if(!pro) return;
+          var st = statsFor(pro.reviews || []);
+          var ratingLine = st.n
+            ? '<span class="stars">★★★★★</span> <b>' + st.avg.toFixed(1) + '</b> <span style="color:var(--muted);font-weight:600">· ' + st.n + ' reviews — all from won jobs</span>'
+            : '<span style="color:var(--muted);font-weight:600">No won-job reviews yet — a rating appears after the first job won here is completed and reviewed.</span>';
+          var reviewsHtml = (pro.reviews || []).length
+            ? pro.reviews.map(reviewHTML).join("")
+            : '<p style="color:var(--muted)">No rating history yet.</p>';
+          var saved = !!savedPros[pro.id];
+          profileBody.innerHTML =
+            '<div class="pro-top"><div class="avatar' + (pro.or ? " or" : "") + '">' + pro.initials + '</div>' +
+            '<div><b style="font-family:Archivo;font-size:1.2rem">' + esc(pro.name) + '</b><br />' + ratingLine + '</div></div>' +
+            '<div class="badges" style="margin-top:14px">' + badgeHTML(allBadges(pro)) + '</div>' +
+            '<div class="pro-stats"><div><b>' + pro.jobs + '</b><small>jobs completed</small></div><div><b>' + pro.resp + '</b><small>avg. response</small></div><div><b>' + esc(pro.area.split(" · ")[0]) + '</b><small>service area</small></div></div>' +
+            '<div class="trades">' + pro.trades.map(function(t){ return '<span class="meta-chip">' + esc(t) + '</span>'; }).join("") + '</div>' +
+            '<h3 style="font-size:1.05rem;font-weight:900;margin-top:20px">Rating history — reviews from won jobs</h3>' +
+            '<p style="color:var(--muted);font-size:.92rem;margin:4px 0 2px">Every review below is from a homeowner whose job this pro won with a bid on DFW Job Bid and completed. Those reviews — and only those — build the rating and the review badges above.</p>' +
+            reviewsHtml +
+            '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">' +
+              (pro.id === "me"
+                ? '<span style="color:var(--muted);font-weight:600">This is the page homeowners land on when they tap your name on a bid.</span>'
+                : '<button type="button" class="btn btn-ghost btn-sm save-btn" data-save="' + pro.id + '" aria-pressed="' + saved + '">' + (saved ? "Saved ✓" : "Save this pro") + '</button>') +
+            '</div>' +
+            '<p style="color:var(--muted);font-size:.9rem;margin:12px 0 0">Private contact opens only for the pro whose bid a homeowner accepts. Saving a pro keeps them on your account for next time.</p>';
+          profileBack.classList.add("open");
+          document.body.style.overflow = "hidden";
+          profileBack.querySelector(".modal").scrollTop = 0;
+        }
+        function closeProfile(){ profileBack.classList.remove("open"); document.body.style.overflow = ""; }
+        document.getElementById("profileClose").addEventListener("click", closeProfile);
+        profileBack.addEventListener("click", function(e){ if(e.target === profileBack) closeProfile(); });
+        function toggleSave(id){
+          var pro = proById(id);
+          if(!pro) return;
+          if(savedPros[id]) delete savedPros[id]; else savedPros[id] = true;
+          var on = !!savedPros[id];
+          document.querySelectorAll('[data-save="' + id + '"]').forEach(function(b){
+            b.setAttribute("aria-pressed", on ? "true" : "false");
+            b.textContent = on ? "Saved ✓" : (b.closest("#profileBody") ? "Save this pro" : (id === "marcus" ? "Save Marcus" : "Save pro"));
+          });
+          renderSavedPros();
+        }
+        document.addEventListener("click", function(e){
+          var pl = e.target.closest("[data-profile]");
+          if(pl){ openProfile(proById(pl.getAttribute("data-profile"))); return; }
+          var sv = e.target.closest("[data-save]");
+          if(sv) toggleSave(sv.getAttribute("data-save"));
+        });
+        function renderSavedPros(){
+          var list = document.getElementById("savedProsList");
+          if(!list) return;
+          var ids = Object.keys(savedPros);
+          if(!ids.length){
+            list.innerHTML = '<li><span class="act-empty" style="color:var(--muted)">No saved pros yet — open a pro profile from Find a Pro, tap Save, and they\'ll live here.</span></li>';
+            return;
+          }
+          list.innerHTML = ids.map(function(id){
+            var pro = proById(id);
+            if(!pro) return "";
+            var st = statsFor(pro.reviews || []);
+            return '<li><span><b>' + esc(pro.name) + '</b><br /><span style="color:var(--muted);font-weight:600;font-size:.9rem">' + pro.level + ' · on DFW Job Bid since ' + pro.since + (st.n ? ' · ★ ' + st.avg.toFixed(1) + ' (' + st.n + ' won-job reviews)' : '') + ' · ' + esc(pro.area) + '</span></span><span class="amt"><button type="button" class="btn btn-navy btn-sm" data-profile="' + pro.id + '">View profile</button></span></li>';
+          }).join("");
+        }
+        var SAMPLE_CONTACTS = [
+          { name:"Denise R.", city:"Fort Worth", note:"Saved your page after a completed job" },
+          { name:"Sarah M.", city:"Fort Worth", note:"Saved your page from the Bid Feed" },
+          { name:"James T.", city:"Plano", note:"Saved your page after a completed job" }
+        ];
+        function renderBizContacts(){
+          var list = document.getElementById("bizContactsList");
+          if(!list) return;
+          list.innerHTML = SAMPLE_CONTACTS.map(function(c){
+            return '<li><span><b>' + c.name + '</b> <span class="sample-tag">Sample</span><br /><span style="color:var(--muted);font-weight:600;font-size:.9rem">' + c.city + ' · ' + c.note + '</span></span></li>';
+          }).join("");
+        }
 
         /* ---------- bid / message modal ---------- */
         var back = document.getElementById("modalBack"),
@@ -1026,6 +1172,20 @@
           msgText.value = "";
           if(m === "bid"){
             mTitle.textContent = "Bid on this job";
+            var asPro = myProProfile(),
+                asField = document.getElementById("bidAsField"),
+                nameField = document.getElementById("bidNameField");
+            if(asPro){
+              asField.style.display = "block";
+              nameField.style.display = "none";
+              document.getElementById("bidAsName").textContent = asPro.name;
+              document.getElementById("bidAsAvatar").textContent = asPro.initials;
+              var asSt = statsFor(asPro.reviews);
+              document.getElementById("bidAsSub").textContent = asPro.level + " · on DFW Job Bid since " + asPro.since + (asSt.n ? " · ★ " + asSt.avg.toFixed(1) + " from " + asSt.n + " won-job reviews" : " · no won-job reviews yet");
+            } else {
+              asField.style.display = "none";
+              nameField.style.display = "block";
+            }
             mCtx.textContent = post.title + " — posted by " + post.name + " in " + post.area + (post.priceType === "set" ? ". Homeowner's price: " + money0(post.price) + "." : ". Open for quotes — name your price.");
             bidAmtField.style.display = "block"; bidMath.style.display = "block"; msgField.style.display = "none";
             bidAmt.value = post.priceType === "set" ? post.price : "";
@@ -1050,15 +1210,24 @@
           if(location.hash !== "#feed"){ location.hash = "feed"; } else { showView("feed"); }
         });
 
+        document.getElementById("bidAsProfile").addEventListener("click", function(){
+          var me = myProProfile();
+          if(me){ closeModal(); openProfile(me); }
+        });
+
         mForm.addEventListener("submit", function(e){
           e.preventDefault();
-          var name = bidName.value.trim() || "Your pro profile";
+          var asProBid = mode === "bid" ? myProProfile() : null;
+          var name = asProBid ? asProBid.name : (bidName.value.trim() || "Your pro profile");
           if(mode === "bid"){
             var v = parseFloat(bidAmt.value);
             if(!v || v < 10){ bidAmt.focus(); return; }
             myBids[current.id] = v;
+            myBidInfo[current.id] = { name: name, mine: !!asProBid };
             document.getElementById("modalDoneTitle").textContent = "Bid placed ✓";
-            document.getElementById("modalDoneText").textContent = name + " bid " + money0(v) + " on “" + current.title + "”. The homeowner sees your bid next to your profile rating — nothing is posted publicly.";
+            document.getElementById("modalDoneText").textContent = asProBid
+              ? "Your bid went in under your page name — “" + name + "” — with your service level, time on the platform, and rating attached. " + current.name + " can tap your name on the bid to open your profile and rating history. Nothing is posted publicly."
+              : name + " bid " + money0(v) + " on “" + current.title + "”. The homeowner sees your bid next to your profile rating — nothing is posted publicly.";
             renderFeed();
             renderActivity();
           } else {
@@ -1175,7 +1344,7 @@
         document.getElementById("postClose").addEventListener("click", closePost);
         postBack.addEventListener("click", function(e){ if(e.target === postBack) closePost(); });
         document.addEventListener("keydown", function(e){
-          if(e.key === "Escape"){ closeModal(); closePost(); closeLegal(); }
+          if(e.key === "Escape"){ closeModal(); closePost(); closeLegal(); closeProfile(); }
         });
         document.getElementById("postDoneBtn").addEventListener("click", function(){
           closePost();
@@ -1239,7 +1408,7 @@
           renderFeed();
           renderActivity();
           document.getElementById("postDoneTitle").textContent = "Posted ✓";
-          document.getElementById("postDoneText").textContent = "Your post is live at the top of the Dallas–Fort Worth feed — pros there can like it, bid on it, or ask you privately. It's also saved under My Account.";
+          document.getElementById("postDoneText").textContent = "Your post is live at the top of the Dallas–Fort Worth feed — pros there can like it or bid on it, and only the pro whose bid you accept can contact you privately. It's also saved under My Account.";
           postFormWrap.style.display = "none"; postDone.classList.add("show");
         });
 
@@ -1295,7 +1464,7 @@
             bidsList.innerHTML = bidIds.map(function(id){
               var p = POSTS.find(function(x){ return x.id === id; });
               if(!p) return "";
-              return '<li><span><b>' + p.title + '</b><br /><span style="color:var(--muted);font-weight:600;font-size:.9rem">Posted by ' + p.name + ' · ' + p.area + '</span></span><span class="amt">' + money0(myBids[id]) + '</span></li>';
+              return '<li><span><b>' + p.title + '</b><br /><span style="color:var(--muted);font-weight:600;font-size:.9rem">Posted by ' + p.name + ' · ' + p.area + (myBidInfo[id] ? '<br />Bid placed as <b>' + esc(myBidInfo[id].name) + '</b> — your page name rides on this bid' : '') + '</span></span><span class="amt">' + money0(myBids[id]) + '</span></li>';
             }).join("");
           } else {
             bidsList.innerHTML = '<li><span class="act-empty" style="color:var(--muted)">No bids placed yet — find a job on the feed and hit Bid Now.</span></li>';
@@ -1342,6 +1511,9 @@
           document.getElementById("acctDash").classList.add("show");
           document.getElementById("navAcct").textContent = "My account";
           renderActivity();
+          document.getElementById("savedProsCard").style.display = acctType === "homeowner" ? "block" : "none";
+          document.getElementById("bizContactsCard").style.display = acctType === "pro" ? "block" : "none";
+          if(acctType === "pro") renderBizContacts(); else renderSavedPros();
           window.scrollTo(0,0);
         });
 
