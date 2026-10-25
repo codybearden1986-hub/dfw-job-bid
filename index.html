@@ -442,7 +442,6 @@
                 <span class="meta-chip">General repairs</span><span class="meta-chip">Fence &amp; gates</span><span class="meta-chip">Drywall</span><span class="meta-chip">Fixtures &amp; fans</span>
               </div>
               <div class="badges" id="featBadges" style="margin-top:14px"></div>
-              <div class="lvl-box" id="featLevel"></div>
               <h3 style="font-size:1.05rem;font-weight:900;margin-top:20px">Reviews from won jobs</h3>
               <div id="featReviews"></div>
               <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
@@ -454,15 +453,6 @@
             <div class="pro-dir" id="proDir"><!-- pro cards injected by script --></div>
             <p class="feed-note">Sample pros, shown so you can see how profiles and ratings read.</p>
 
-            <div class="dash-card" style="margin-top:26px">
-              <h3 style="font-size:1.25rem;font-weight:900">Top 10 standings — this year</h3>
-              <p style="color:var(--muted);margin:6px 0 6px">Ranked by system points: completed won jobs, the stars on their reviews, and repeat customers. Levels run 1 to 20 — and every level costs more points than the one before it.</p>
-              <ol class="stand-list" id="leaderList"></ol>
-            </div>
-            <div class="vac-card">
-              <h3>The Top 10 earn a shot at the vacation.</h3>
-              <p>The <b>top 10 contractors at the end of the year</b> are entered into a drawing for a <b>7-day vacation</b> — DFW Job Bid pays the <b>hotel and airfare</b>, and the winner picks from <b>3 choice destinations</b> (to be announced). It's merit-based and earned: standings come only from real won jobs and the reviews on them.</p>
-            </div>
             <div style="margin-top:18px">
               <a class="btn btn-navy" href="#account" data-goto-type="pro">Claim your pro profile</a>
             </div>
@@ -574,6 +564,15 @@
                 <div class="dash-card" id="standingCard">
                   <h3 id="standingTitle">Your standing</h3>
                   <div id="standingBody"></div>
+                </div>
+                <div class="dash-card" id="dashBoardCard" style="display:none">
+                  <h3>Top 10 standings — this year</h3>
+                  <p style="color:var(--muted);margin:6px 0 6px">Ranked by system points: completed won jobs, the stars on their reviews, and repeat customers. Levels run 1 to 20 — and every level costs more points than the one before it.</p>
+                  <ol class="stand-list" id="dashLeaderList"></ol>
+                  <div class="vac-card">
+                    <h3>The Top 10 earn a shot at the vacation.</h3>
+                    <p>The <b>top 10 contractors at the end of the year</b> are entered into a drawing for a <b>7-day vacation</b> — DFW Job Bid pays the <b>hotel and airfare</b>, and the winner picks from <b>3 choice destinations</b> (to be announced). It's merit-based and earned: standings come only from real won jobs and the reviews on them.</p>
+                  </div>
                 </div>
                 <div class="dash-card">
                   <h3>Jobs I've posted</h3>
@@ -736,12 +735,6 @@
             <p>Posting jobs is free for homeowners. What pros pay — the subscription and the fee on a winning bid — is spelled out in the <a href="#terms" data-legal="terms">Terms of Service</a>.</p>
             <h3>How do payments work?</h3>
             <p>Pro subscriptions and the fee on a winning bid are billed through Stripe. The money for the job itself is handled directly between the homeowner and the pro — the platform doesn't process job payments yet.</p>
-            <h3>Do homeowners get rated too?</h3>
-            <p>Yes. A homeowner's reviewer rating reflects how well they keep up with rating their pro once a job is completed. Rating your completed jobs keeps your standing high — and pros can see it when deciding where to bid.</p>
-            <h3>How do pro levels work?</h3>
-            <p>Pros earn system points from jobs they win here and complete, the stars on those jobs' reviews, and repeat customers. Points build a badge level from 1 to 20. Every level takes more points than the last, so levels don't come easily — and 20 is the ceiling.</p>
-            <h3>What's the vacation drawing?</h3>
-            <p>The top 10 pros in the standings at the end of the year are entered into a drawing for a 7-day vacation — hotel and airfare paid by DFW Job Bid, winner's choice of 3 destinations to be announced. It's merit-based: the only way in is earning a top-10 standing.</p>
             <h3>When is the site down for maintenance?</h3>
             <p>Every Sunday night at 12:00 AM Central, the site shuts down automatically for maintenance — bug fixes and capacity checks — and comes back at full capacity.</p>
           </div>
@@ -1024,7 +1017,7 @@
               '<span class="when">' + p.when + '</span></div>' +
               '<img class="photo" src="' + p.photo + '" alt="' + p.alt + '" loading="lazy" />' +
               '<div class="post-body"><h3>' + p.title + '</h3><p>' + p.desc + '</p>' +
-              '<div class="price-row">' + priceChip + meta + reviewerChip(p) + '</div>' +
+              '<div class="price-row">' + priceChip + meta + '</div>' +
               '<div class="my-bid' + (myBids[p.id] ? " show" : "") + '">' + bidAttrib + '<span>' + (myBids[p.id] ? money0(myBids[p.id]) : "") + '</span> · ' + bidCount + ' bids so far</div>' +
               (myBids[p.id] && myBidInfo[p.id] && myBidInfo[p.id].msg
                 ? '<div class="bid-msg"><b>Your message with this bid</b> — only ' + esc(p.name) + ' sees it, alongside the bid:<br /><q>' + esc(myBidInfo[p.id].msg) + '</q></div>'
@@ -1136,8 +1129,6 @@
         }
         function standingBadges(pro){
           var out = [];
-          var li = levelInfo(pro.points);
-          out.push({ icon:"medal", cls:" level", label:"Level " + li.lvl + " of 20", title:"System level: earned with points from completed won jobs and their reviews. Level 20 is the top, and every level costs more points than the last." });
           if(pro.level) out.push({ icon:"shield", cls: pro.level.indexOf("Premier") === 0 ? " top" : "", label: pro.level, title:"Service level on DFW Job Bid: " + pro.level });
           if(pro.since) out.push({ icon:"clock", cls:"", label:"On DFW Job Bid since " + pro.since, title:"Time on the platform: a member of DFW Job Bid since " + pro.since });
           return out;
@@ -1174,7 +1165,6 @@
           document.getElementById("featStars").setAttribute("aria-label", "Rated " + st.avg.toFixed(1) + " out of 5 from " + st.n + " reviews of won jobs");
           document.getElementById("featReviewCount").textContent = "· " + st.n + " reviews — all from won jobs";
           document.getElementById("featBadges").innerHTML = badgeHTML(allBadges(FEATURED_PRO));
-          document.getElementById("featLevel").innerHTML = levelBoxHTML(FEATURED_PRO);
           document.getElementById("featReviews").innerHTML = FEATURED_REVIEWS.map(reviewHTML).join("");
         })();
 
@@ -1263,7 +1253,6 @@
             '<div class="pro-top"><div class="avatar' + (pro.or ? " or" : "") + '">' + pro.initials + '</div>' +
             '<div><b style="font-family:Archivo;font-size:1.2rem">' + esc(pro.name) + '</b><br />' + ratingLine + '</div></div>' +
             '<div class="badges" style="margin-top:14px">' + badgeHTML(allBadges(pro)) + '</div>' +
-            '<div class="lvl-box">' + levelBoxHTML(pro) + '</div>' +
             '<div class="pro-stats"><div><b>' + pro.jobs + '</b><small>jobs completed</small></div><div><b>' + pro.resp + '</b><small>avg. response</small></div><div><b>' + esc(pro.area.split(" · ")[0]) + '</b><small>service area</small></div></div>' +
             '<div class="trades">' + pro.trades.map(function(t){ return '<span class="meta-chip">' + esc(t) + '</span>'; }).join("") + '</div>' +
             '<h3 style="font-size:1.05rem;font-weight:900;margin-top:20px">Rating history — reviews from won jobs</h3>' +
@@ -1337,7 +1326,7 @@
             '<span class="stand-pts">' + (pro.points || 0).toLocaleString("en-US") + ' pts</span></li>';
         }
         (function renderLeaderboard(){
-          var list = document.getElementById("leaderList");
+          var list = document.getElementById("dashLeaderList");
           if(!list) return;
           var ranked = allProsRanked(), html = "";
           for(var i = 0; i < 10; i++){
@@ -1785,6 +1774,7 @@
           document.getElementById("navAcct").textContent = "My account";
           renderActivity();
           renderStanding();
+          document.getElementById("dashBoardCard").style.display = acctType === "pro" ? "block" : "none";
           document.getElementById("savedProsCard").style.display = acctType === "homeowner" ? "block" : "none";
           document.getElementById("bizContactsCard").style.display = acctType === "pro" ? "block" : "none";
           if(acctType === "pro") renderBizContacts(); else renderSavedPros();
