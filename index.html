@@ -141,6 +141,9 @@
       .my-bid{display:none;margin-top:10px;background:var(--surface-2);border-radius:8px;padding:8px 12px;font-weight:700;font-size:.95rem}
       .my-bid.show{display:block}
       .my-bid span{color:var(--red-dark)}
+      .bid-msg{margin-top:8px;background:var(--surface-2);border-radius:8px;padding:8px 12px;font-size:.92rem}
+      .bid-msg b{font-family:"Archivo"}
+      .bid-msg q{color:var(--muted);font-weight:600}
       .post-actions{display:flex;border-top:1px solid var(--line);margin-top:12px}
       .post-actions button{flex:1;background:none;border:0;border-right:1px solid var(--line);padding:12px 4px;font-family:"Barlow";font-weight:700;font-size:.95rem;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px}
       .post-actions button:last-child{border-right:0}
@@ -411,7 +414,6 @@
               <p style="color:var(--muted);font-size:.92rem;margin:4px 0 2px">Each review is from a homeowner whose job Marcus won with a bid on DFW Job Bid and completed — those reviews build his rating and his badges.</p>
               <div id="featReviews"></div>
               <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
-                <button type="button" class="btn btn-red btn-sm" data-pro-msg="Marcus T. — Handyman">Ask Marcus privately</button>
                 <button type="button" class="btn btn-ghost btn-sm save-btn" data-save="marcus" aria-pressed="false">Save Marcus</button>
                 <a class="btn btn-ghost btn-sm" href="#feed">See the jobs he's bidding on</a>
               </div>
@@ -717,6 +719,10 @@
             <div id="bidMath" style="margin-bottom:14px">
               <div class="fee-line total"><span>Your bid</span><span id="bmBid">$0</span></div>
             </div>
+            <div class="field" id="bidMsgField" style="display:none">
+              <label for="bidMsgText">Message with your bid <span style="color:var(--muted);font-weight:600">(optional — only this homeowner sees it, right alongside your bid)</span></label>
+              <textarea id="bidMsgText" rows="3" placeholder="Ask about access, timing, measurements — anything you need to know about this job."></textarea>
+            </div>
             <div class="field" id="msgField" style="display:none">
               <label for="msgText">Message</label>
               <textarea id="msgText" rows="4" placeholder="Ask about access, timing, measurements — anything you need before bidding."></textarea>
@@ -881,6 +887,9 @@
               '<div class="post-body"><h3>' + p.title + '</h3><p>' + p.desc + '</p>' +
               '<div class="price-row">' + priceChip + meta + '</div>' +
               '<div class="my-bid' + (myBids[p.id] ? " show" : "") + '">' + bidAttrib + '<span>' + (myBids[p.id] ? money0(myBids[p.id]) : "") + '</span> · ' + bidCount + ' bids so far</div>' +
+              (myBids[p.id] && myBidInfo[p.id] && myBidInfo[p.id].msg
+                ? '<div class="bid-msg"><b>Your message with this bid</b> — only ' + esc(p.name) + ' sees it, alongside the bid:<br /><q>' + esc(myBidInfo[p.id].msg) + '</q></div>'
+                : '') +
               '</div>' +
               '<div class="post-actions">' +
                 '<button type="button" class="like-btn' + (liked[p.id] ? " liked" : "") + '" data-like="' + p.id + '" aria-pressed="' + !!liked[p.id] + '">' + heartSVG + ' Like · ' + likeCount + '</button>' +
@@ -1046,7 +1055,7 @@
             '<div class="badges" style="margin-top:12px">' + badgeHTML(allBadges(pr)) + '</div>' +
             '<p style="font-family:Archivo;font-weight:800;font-size:.92rem;margin:16px 0 0">Latest won-job review</p>' +
             reviewHTML(pr.reviews[0]) +
-            '<div style="margin-top:14px;display:flex;gap:9px;flex-wrap:wrap"><button type="button" class="btn btn-navy btn-sm" data-profile="' + pr.id + '">View profile</button><button type="button" class="btn btn-ghost btn-sm save-btn" data-save="' + pr.id + '" aria-pressed="false">Save pro</button><button type="button" class="btn btn-red btn-sm" data-pro-msg="' + esc(pr.name) + '">Ask privately</button></div>';
+            '<div style="margin-top:14px;display:flex;gap:9px;flex-wrap:wrap"><button type="button" class="btn btn-navy btn-sm" data-profile="' + pr.id + '">View profile</button><button type="button" class="btn btn-ghost btn-sm save-btn" data-save="' + pr.id + '" aria-pressed="false">Save pro</button></div>';
           proDir.appendChild(card);
         });
 
@@ -1154,6 +1163,8 @@
             bidAmtField = document.getElementById("bidAmtField"),
             bidMath = document.getElementById("bidMath"),
             msgField = document.getElementById("msgField"),
+            bidMsgField = document.getElementById("bidMsgField"),
+            bidMsgText = document.getElementById("bidMsgText"),
             bidAmt = document.getElementById("bidAmt"),
             bidName = document.getElementById("bidName"),
             msgText = document.getElementById("msgText"),
@@ -1188,6 +1199,7 @@
             }
             mCtx.textContent = post.title + " — posted by " + post.name + " in " + post.area + (post.priceType === "set" ? ". Homeowner's price: " + money0(post.price) + "." : ". Open for quotes — name your price.");
             bidAmtField.style.display = "block"; bidMath.style.display = "block"; msgField.style.display = "none";
+            bidMsgField.style.display = "block"; bidMsgText.value = "";
             bidAmt.value = post.priceType === "set" ? post.price : "";
             mSubmit.textContent = "Place bid";
             updateBidMath();
@@ -1196,7 +1208,7 @@
             mCtx.textContent = post.proDirect
               ? "Your message goes only to " + post.name + ". Nothing is posted publicly."
               : "Your message goes only to " + post.name + " about “" + post.title + "”. Nothing is posted publicly.";
-            bidAmtField.style.display = "none"; bidMath.style.display = "none"; msgField.style.display = "block";
+            bidAmtField.style.display = "none"; bidMath.style.display = "none"; bidMsgField.style.display = "none"; msgField.style.display = "block";
             mSubmit.textContent = "Send private message";
           }
           back.classList.add("open");
@@ -1223,11 +1235,13 @@
             var v = parseFloat(bidAmt.value);
             if(!v || v < 10){ bidAmt.focus(); return; }
             myBids[current.id] = v;
-            myBidInfo[current.id] = { name: name, mine: !!asProBid };
+            var bidMsg = bidMsgText.value.trim();
+            myBidInfo[current.id] = { name: name, mine: !!asProBid, msg: bidMsg };
+            var msgNote = bidMsg ? " Your message went with the bid — " + current.name + " sees it alongside your bid, and only there." : "";
             document.getElementById("modalDoneTitle").textContent = "Bid placed ✓";
-            document.getElementById("modalDoneText").textContent = asProBid
+            document.getElementById("modalDoneText").textContent = (asProBid
               ? "Your bid went in under your page name — “" + name + "” — with your service level, time on the platform, and rating attached. " + current.name + " can tap your name on the bid to open your profile and rating history. Nothing is posted publicly."
-              : name + " bid " + money0(v) + " on “" + current.title + "”. The homeowner sees your bid next to your profile rating — nothing is posted publicly.";
+              : name + " bid " + money0(v) + " on “" + current.title + "”. The homeowner sees your bid next to your profile rating — nothing is posted publicly.") + msgNote;
             renderFeed();
             renderActivity();
           } else {
@@ -1264,13 +1278,6 @@
           var avEl = e.target.closest ? e.target.closest("[data-avatar-up]") : null;
           if(avEl && (e.key === "Enter" || e.key === " ")){ e.preventDefault(); avEl.click(); }
         });
-        document.addEventListener("click", function(e){
-          var pm = e.target.closest("[data-pro-msg]");
-          if(pm){
-            openModal({ id:"pro", proDirect:true, name:pm.getAttribute("data-pro-msg"), title:"", area:"", priceType:"open" }, "msg");
-          }
-        });
-
         /* ---------- click-to-upload photos ---------- */
         var fileInput = document.createElement("input");
         fileInput.type = "file";
@@ -1464,7 +1471,7 @@
             bidsList.innerHTML = bidIds.map(function(id){
               var p = POSTS.find(function(x){ return x.id === id; });
               if(!p) return "";
-              return '<li><span><b>' + p.title + '</b><br /><span style="color:var(--muted);font-weight:600;font-size:.9rem">Posted by ' + p.name + ' · ' + p.area + (myBidInfo[id] ? '<br />Bid placed as <b>' + esc(myBidInfo[id].name) + '</b> — your page name rides on this bid' : '') + '</span></span><span class="amt">' + money0(myBids[id]) + '</span></li>';
+              return '<li><span><b>' + p.title + '</b><br /><span style="color:var(--muted);font-weight:600;font-size:.9rem">Posted by ' + p.name + ' · ' + p.area + (myBidInfo[id] ? '<br />Bid placed as <b>' + esc(myBidInfo[id].name) + '</b> — your page name rides on this bid' : '') + (myBidInfo[id] && myBidInfo[id].msg ? '<br />Message with your bid: <q>' + esc(myBidInfo[id].msg) + '</q>' : '') + '</span></span><span class="amt">' + money0(myBids[id]) + '</span></li>';
             }).join("");
           } else {
             bidsList.innerHTML = '<li><span class="act-empty" style="color:var(--muted)">No bids placed yet — find a job on the feed and hit Bid Now.</span></li>';
