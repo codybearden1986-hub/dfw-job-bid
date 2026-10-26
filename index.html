@@ -346,6 +346,7 @@
           <a href="#feed" data-nav="feed">Bid Feed</a>
           <a href="#pros" data-nav="pros">Find a Pro</a>
           <a href="#areas" data-nav="areas">Areas</a>
+          <a href="#admin" data-nav="admin">Owner dashboard</a>
           <button type="button" class="btn btn-navy btn-sm" data-open-post>Post a job</button>
           <a class="btn btn-red btn-sm" href="#account" id="navAcct">Create account</a>
         </nav>
@@ -561,6 +562,13 @@
                     <a class="btn btn-ghost btn-sm" href="#feed">Browse the feed</a>
                   </div>
                 </div>
+                <div class="dash-card" id="notifCard">
+                  <span class="tagline-chip">Monthly standings notification</span>
+                  <h3 style="margin-top:12px">Who's on top — <span id="notifMonth"></span></h3>
+                  <p style="color:var(--muted);margin:6px 0 4px">On the 1st of every month, every member gets a notification naming the pros leading the standings. This month's top three:</p>
+                  <ol class="stand-list" id="notifTop"></ol>
+                  <p style="color:var(--muted);margin:10px 0 0;font-size:.94rem">Next notification goes out <b style="color:var(--ink)" id="notifNext"></b>.</p>
+                </div>
                 <div class="dash-card" id="standingCard">
                   <h3 id="standingTitle">Your standing</h3>
                   <div id="standingBody"></div>
@@ -617,6 +625,16 @@
             </div>
 
             <div class="dash-card">
+              <h3>Monthly standings notification</h3>
+              <p style="color:var(--muted);margin:0">On the <b style="color:var(--ink)">1st of every month</b>, every member gets a notification naming who's on top of the contractor standings.</p>
+              <dl style="display:grid;grid-template-columns:auto 1fr;gap:4px 16px;margin:14px 0 10px">
+                <dt style="font-weight:700">Next notification</dt><dd style="margin:0" id="nextNotif">—</dd>
+                <dt style="font-weight:700">On top right now</dt><dd style="margin:0" id="notifLeader">—</dd>
+              </dl>
+              <div class="bid-msg"><b>What members see</b><br /><span id="notifPreview"></span></div>
+            </div>
+
+            <div class="dash-card">
               <h3>Scheduled maintenance</h3>
               <p style="color:var(--muted);margin:0">The site shuts down automatically every <b style="color:var(--ink)">Sunday night at 12:00 AM</b> for bug fixes and full-capacity checks.</p>
               <dl style="display:grid;grid-template-columns:auto 1fr;gap:4px 16px;margin:14px 0 4px">
@@ -668,6 +686,7 @@
                 <li><b>Homeowners carry a reviewer rating</b> based on keeping up with rating the pro after a job won here is completed. Homeowners who rate their completed jobs promptly and consistently earn higher reviewer standing.</li>
                 <li><b>Pros earn system points</b> from jobs won through a bid and completed, the stars on the reviews those jobs receive, and repeat customers. Points feed a <b>badge level from 1 to 20</b>. Level 20 is the top; each level requires more points than the one before it, so higher levels are earned slowly.</li>
                 <li><b>Year-end drawing:</b> the top 10 pros in the standings at the end of the year are entered into a drawing for a 7-day vacation — hotel and airfare paid by DFW Job Bid, with the winner choosing from 3 destinations to be announced. Entry is merit-based, earned through standings only; it cannot be bought.</li>
+                <li><b>Monthly standings notification:</b> on the first of each month, members receive a notification naming the pros currently leading the standings.</li>
               </ul>
               <h3>Scheduled maintenance</h3>
               <p>The platform shuts down for automatic maintenance every Sunday night at 12:00 AM Central so fixes and capacity checks can run. Access during that window may be unavailable.</p>
@@ -774,6 +793,7 @@
       <button type="button" class="tab-post" data-open-post><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>Post a job</button>
       <a href="#areas" data-nav="areas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>Areas</a>
       <a href="#account" data-nav="account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Account</a>
+      <a href="#admin" data-nav="admin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 3v18h18"/><path d="M8 17v-6M13 17V7M18 17v-3"/></svg>Owner</a>
     </nav>
 
     <!-- POST A JOB MODAL -->
@@ -886,6 +906,23 @@
       <div class="modal">
         <button class="x-btn" id="profileClose" aria-label="Close">✕</button>
         <div id="profileBody"></div>
+      </div>
+    </div>
+
+    <!-- VACATION POPUP — shown once, right after registration -->
+    <div class="modal-back" id="vacBack" role="dialog" aria-modal="true" aria-labelledby="vacTitle">
+      <div class="modal">
+        <button class="x-btn" id="vacClose" aria-label="Close">✕</button>
+        <h3 id="vacTitle">Before you dive in — the Top 10 vacation drawing</h3>
+        <p class="ctx" id="vacCtx"></p>
+        <div class="vac-card" style="margin-top:0">
+          <h3>Top 10 at year end → entered to win</h3>
+          <p><b>7 days</b> away · <b>hotel and airfare paid</b> by DFW Job Bid · winner picks from <b>3 choice destinations</b> (to be announced). Earned on merit — won jobs and the reviews on them. Nothing to buy, no way to skip the line.</p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+          <button class="btn btn-red" id="vacBtn" type="button">Got it — let's go</button>
+          <button class="btn btn-ghost" id="vacStandings" type="button">See the Top 10 standings</button>
+        </div>
       </div>
     </div>
 
@@ -1371,6 +1408,30 @@
           renderAdmin();
         });
         renderAdmin();
+        /* ---------- monthly standings notification: 1st of each month, who's on top ---------- */
+        function firstOfNextMonth(){
+          var now = new Date();
+          return new Date(now.getFullYear(), now.getMonth() + 1, 1);
+        }
+        function renderMonthlyNotif(){
+          var monthName = new Date().toLocaleString("en-US", { month:"long", year:"numeric" });
+          var ranked = allProsRanked(), lead = ranked[0];
+          var top = document.getElementById("notifTop");
+          if(top){
+            document.getElementById("notifMonth").textContent = monthName;
+            var html = "";
+            for(var i = 0; i < Math.min(3, ranked.length); i++) html += standRowHTML(ranked[i], i + 1);
+            top.innerHTML = html;
+            document.getElementById("notifNext").textContent = firstOfNextMonth().toLocaleDateString("en-US", { month:"long", day:"numeric", year:"numeric" });
+          }
+          var nn = document.getElementById("nextNotif");
+          if(nn){
+            nn.textContent = firstOfNextMonth().toLocaleDateString("en-US", { weekday:"long", month:"long", day:"numeric", year:"numeric" });
+            document.getElementById("notifLeader").textContent = lead ? lead.name + " — " + (lead.points || 0).toLocaleString("en-US") + " pts" : "—";
+            document.getElementById("notifPreview").innerHTML = "<b>" + monthName + " standings are in.</b> " + (lead ? esc(lead.name) + " leads the Top 10 with " + (lead.points || 0).toLocaleString("en-US") + " points" : "The Top 10 board is open") + ". Open your dashboard to see the full board.";
+          }
+        }
+        renderMonthlyNotif();
         /* ---------- maintenance: automatic Sunday 12:00 AM + manual owner toggle ---------- */
         function nextSundayMidnight(){
           var now = new Date(), d = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
@@ -1392,6 +1453,24 @@
           maintToggle.textContent = maintOn ? "Bring the site back up" : "Turn maintenance mode on now";
           if(maintOn) window.scrollTo(0,0);
         });
+        /* ---------- vacation popup: shown once, right after a pro registers ---------- */
+        var vacBack = document.getElementById("vacBack");
+        function openVacPop(){
+          if(!lastSignup) return;
+          document.getElementById("vacCtx").textContent = "Welcome aboard, " + lastSignup.name.split(" ")[0] + ". Every job you win on DFW Job Bid earns system points and climbs your level — and at the end of the year, the top 10 pros in the standings are entered into a drawing for a 7-day vacation, with hotel and airfare paid by DFW Job Bid. The winner picks from 3 choice destinations (to be announced). It's merit-based only — standings come from real won jobs and their reviews, and a spot can't be bought.";
+          vacBack.classList.add("open");
+          document.body.style.overflow = "hidden";
+        }
+        function closeVacPop(){ vacBack.classList.remove("open"); document.body.style.overflow = ""; }
+        document.getElementById("vacClose").addEventListener("click", closeVacPop);
+        document.getElementById("vacBtn").addEventListener("click", closeVacPop);
+        vacBack.addEventListener("click", function(e){ if(e.target === vacBack) closeVacPop(); });
+        document.getElementById("vacStandings").addEventListener("click", function(){
+          closeVacPop();
+          var card = document.getElementById("dashBoardCard");
+          if(card) card.scrollIntoView({ behavior:"smooth", block:"start" });
+        });
+
         /* ---------- account dashboard standing ---------- */
         function renderStanding(){
           var title = document.getElementById("standingTitle"), body = document.getElementById("standingBody");
@@ -1606,7 +1685,7 @@
         document.getElementById("postClose").addEventListener("click", closePost);
         postBack.addEventListener("click", function(e){ if(e.target === postBack) closePost(); });
         document.addEventListener("keydown", function(e){
-          if(e.key === "Escape"){ closeModal(); closePost(); closeLegal(); closeProfile(); }
+          if(e.key === "Escape"){ closeModal(); closePost(); closeLegal(); closeProfile(); closeVacPop(); }
         });
         document.getElementById("postDoneBtn").addEventListener("click", function(){
           closePost();
@@ -1779,6 +1858,7 @@
           document.getElementById("bizContactsCard").style.display = acctType === "pro" ? "block" : "none";
           if(acctType === "pro") renderBizContacts(); else renderSavedPros();
           window.scrollTo(0,0);
+          if(acctType === "pro") openVacPop();
         });
 
         document.getElementById("dlSummary").addEventListener("click", function(){
