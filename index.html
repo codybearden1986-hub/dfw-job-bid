@@ -176,7 +176,7 @@
       .badge{display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:var(--surface);font-weight:700;font-size:.8rem;padding:5px 11px;border-radius:999px}
       .badge svg{width:13px;height:13px;flex:none}
       .badge.top{background:var(--red);color:#fff}
-      .won-tag{display:inline-block;background:var(--green-soft);color:var(--green);font-weight:700;font-size:.75rem;padding:2px 8px;border-radius:999px;margin-left:4px;white-space:nowrap}
+      .contract-tag{display:inline-block;background:var(--green-soft);color:var(--green);font-weight:700;font-size:.75rem;padding:2px 8px;border-radius:999px;margin-left:4px;white-space:nowrap}
       .pro-link{background:none;border:0;padding:0;font:inherit;font-weight:800;color:var(--red-dark);cursor:pointer;text-decoration:underline;text-underline-offset:2px;text-align:left}
       .pro-link:hover{color:var(--red)}
       .bid-as{display:flex;gap:11px;align-items:center;background:var(--surface-2);border-radius:10px;padding:11px 13px}
@@ -360,8 +360,8 @@
         <div class="app-hero">
           <div class="wrap">
             <span class="tagline-chip">Live in Dallas–Fort Worth</span>
-            <h1>Post the job. Local pros <span class="hl">bid.</span><br />You pick the winner.</h1>
-            <p class="lede">Homeowners post home work with photos and a price — or open it for quotes. Local pros bid. You pick the winner.</p>
+            <h1>Post the job. Local pros <span class="hl">bid.</span><br />You make the contract.</h1>
+            <p class="lede">Homeowners post home work with photos and a price — or open it for quotes. Local pros bid. You make the contract.</p>
             <div class="hero-ctas">
               <button type="button" class="btn btn-red" data-open-post>Post a job — free</button>
               <a class="btn btn-navy" href="#pros">Browse local pros</a>
@@ -430,7 +430,7 @@
                 <div class="avatar or up" id="proAvatar" role="button" tabindex="0" aria-label="Add a profile photo" title="Tap to add your photo">MT<span class="cam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span></div>
                 <div>
                   <b style="font-family:Archivo;font-size:1.15rem">Marcus T. — Handyman</b> <span class="sample-tag">Featured profile</span><br />
-                  <span class="stars" id="featStars" aria-label="Average rating from won-job reviews">★★★★★</span>
+                  <span class="stars" id="featStars" aria-label="Average rating from contract reviews">★★★★★</span>
                   <b id="featRating">—</b> <span style="color:var(--muted);font-weight:600" id="featReviewCount"></span>
                 </div>
               </div>
@@ -443,7 +443,7 @@
                 <span class="meta-chip">General repairs</span><span class="meta-chip">Fence &amp; gates</span><span class="meta-chip">Drywall</span><span class="meta-chip">Fixtures &amp; fans</span>
               </div>
               <div class="badges" id="featBadges" style="margin-top:14px"></div>
-              <h3 style="font-size:1.05rem;font-weight:900;margin-top:20px">Reviews from won jobs</h3>
+              <h3 style="font-size:1.05rem;font-weight:900;margin-top:20px">Reviews from contracts</h3>
               <div id="featReviews"></div>
               <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
                 <button type="button" class="btn btn-ghost btn-sm save-btn" data-save="marcus" aria-pressed="false">Save Marcus</button>
@@ -575,11 +575,11 @@
                 </div>
                 <div class="dash-card" id="dashBoardCard" style="display:none">
                   <h3>Top 10 standings — this year</h3>
-                  <p style="color:var(--muted);margin:6px 0 6px">Ranked by system points: completed won jobs, the stars on their reviews, and repeat customers. Levels run 1 to 20 — and every level costs more points than the one before it.</p>
+                  <p style="color:var(--muted);margin:6px 0 6px">Ranked by system points: completed contracts, the stars on their reviews, and repeat customers. Levels run 1 to 20 — and every level costs more points than the one before it.</p>
                   <ol class="stand-list" id="dashLeaderList"></ol>
                   <div class="vac-card">
                     <h3>The Top 10 earn a shot at the vacation.</h3>
-                    <p>The <b>top 10 contractors at the end of the year</b> are entered into a drawing for a <b>7-day vacation</b> — DFW Job Bid pays the <b>hotel and airfare</b>, and the winner picks from <b>3 choice destinations</b> (to be announced). It's merit-based and earned: standings come only from real won jobs and the reviews on them.</p>
+                    <p>The <b>top 10 contractors at the end of the year</b> are entered into a drawing for a <b>7-day vacation</b> — DFW Job Bid pays the <b>hotel and airfare</b>, and the pro drawn picks from <b>3 choice destinations</b> (to be announced). It's merit-based and earned: standings come only from real completed contracts and the reviews on them.</p>
                   </div>
                 </div>
                 <div class="dash-card">
@@ -673,7 +673,7 @@
               <ul>
                 <li><b>Homeowners:</b> posting jobs is free.</li>
                 <li><b>Pros:</b> a <b>$10.00 per month subscription</b> is required to bid and receive private inquiries. The subscription renews monthly until cancelled; cancelling stops future renewals, and bidding access runs to the end of the paid month.</li>
-                <li><b>Platform fee:</b> on a job awarded through the platform, the pro pays a service fee of <b>1.7% of the winning bid amount</b>. Example: a $1,000 winning bid carries a $17.00 platform fee. The fee is earned when the bid is accepted and is non-refundable once the job is awarded through the platform.</li>
+                <li><b>Platform fee:</b> on a job contracted through the platform, the pro pays a service fee of <b>1.7% of the contracted bid amount</b>. Example: a $1,000 contracted bid carries a $17.00 platform fee. The fee is earned when the bid becomes a contract and is non-refundable once the job is contracted through the platform.</li>
               </ul>
               <p>Taxes may apply to fees where required by law. Fee amounts may change with notice posted in these terms before the change takes effect.</p>
               <h3>How payments are handled</h3>
@@ -683,9 +683,9 @@
               </ul>
               <h3>Ratings, levels, and the year-end drawing</h3>
               <ul>
-                <li><b>Homeowners carry a reviewer rating</b> based on keeping up with rating the pro after a job won here is completed. Homeowners who rate their completed jobs promptly and consistently earn higher reviewer standing.</li>
-                <li><b>Pros earn system points</b> from jobs won through a bid and completed, the stars on the reviews those jobs receive, and repeat customers. Points feed a <b>badge level from 1 to 20</b>. Level 20 is the top; each level requires more points than the one before it, so higher levels are earned slowly.</li>
-                <li><b>Year-end drawing:</b> the top 10 pros in the standings at the end of the year are entered into a drawing for a 7-day vacation — hotel and airfare paid by DFW Job Bid, with the winner choosing from 3 destinations to be announced. Entry is merit-based, earned through standings only; it cannot be bought.</li>
+                <li><b>Homeowners carry a reviewer rating</b> based on keeping up with rating the pro after a contracted job here is completed. Homeowners who rate their completed jobs promptly and consistently earn higher reviewer standing.</li>
+                <li><b>Pros earn system points</b> from contracted jobs completed, the stars on the reviews those jobs receive, and repeat customers. Points feed a <b>badge level from 1 to 20</b>. Level 20 is the top; each level requires more points than the one before it, so higher levels are earned slowly.</li>
+                <li><b>Year-end drawing:</b> the top 10 pros in the standings at the end of the year are entered into a drawing for a 7-day vacation — hotel and airfare paid by DFW Job Bid, with the pro drawn choosing from 3 destinations to be announced. Entry is merit-based, earned through standings only; it cannot be bought.</li>
                 <li><b>Monthly standings notification:</b> on the first of each month, members receive a notification naming the pros currently leading the standings.</li>
               </ul>
               <h3>Scheduled maintenance</h3>
@@ -735,15 +735,15 @@
           <p class="ctx">How DFW Job Bid works — all in one place.</p>
           <div class="terms-body">
             <h3>How does it work?</h3>
-            <p>A homeowner posts a job — photos, a description, their area, and either their price or a request for quotes. Pros respond with bids. The homeowner compares the bids and the pros' ratings, picks a winner, and rates the work once it's done. Posting is free for homeowners.</p>
+            <p>A homeowner posts a job — photos, a description, their area, and either their price or a request for quotes. Pros respond with bids. The homeowner compares the bids and the pros' ratings, takes a bid — that bid becomes the contract — and rates the work once it's done. Posting is free for homeowners.</p>
             <h3>What can a pro do on a post?</h3>
             <p>Like it, or bid on it. There's no public commenting and no haggling on posts — every bid stays private between the pro and the homeowner.</p>
             <h3>Who can contact me privately?</h3>
-            <p>Only the pro whose bid you accept — private contact is a winner's privilege. Before that, a bid can carry a short private message from the pro about the job's details; it travels with that bid, and only the homeowner sees it, right alongside the bid.</p>
+            <p>Only the pro whose bid you accept — private contact comes with the contract. Before that, a bid can carry a short private message from the pro about the job's details; it travels with that bid, and only the homeowner sees it, right alongside the bid.</p>
             <h3>How do ratings work?</h3>
-            <p>A pro's rating is built only from reviews of jobs they won with a bid on DFW Job Bid and completed. No won job, no review — and reviews can't be bought or posted any other way.</p>
+            <p>A pro's rating is built only from reviews of jobs they contracted through a bid on DFW Job Bid and completed. No contract, no review — and reviews can't be bought or posted any other way.</p>
             <h3>What badges can a pro earn?</h3>
-            <p>Review badges — Top Rated, Five-Star Finisher, Repeat Happy Customers, and won-job review counts — are earned from those won-job reviews. Every profile also carries standing badges for the pro's service level and how long they've been on the platform.</p>
+            <p>Review badges — Top Rated, Five-Star Finisher, Repeat Happy Customers, and contract review counts — are earned from those contract reviews. Every profile also carries standing badges for the pro's service level and how long they've been on the platform.</p>
             <h3>How do areas work?</h3>
             <p>You pick your area when you post, the way classifieds work — just cleaner. Dallas–Fort Worth is live now; Houston, Austin, and San Antonio open next, each with its own feed under the same name. Your account, profile, and rating carry into every new area the day it opens.</p>
             <h3>What happens when I save a pro?</h3>
@@ -751,9 +751,9 @@
             <h3>How do I add a photo?</h3>
             <p>Tap the spot where the photo goes — your profile circle, a pro cover, a feed avatar, or a job post's photo area — and pick a picture. There are no add-photo links to hunt for.</p>
             <h3>What does it cost?</h3>
-            <p>Posting jobs is free for homeowners. What pros pay — the subscription and the fee on a winning bid — is spelled out in the <a href="#terms" data-legal="terms">Terms of Service</a>.</p>
+            <p>Posting jobs is free for homeowners. What pros pay — the subscription and the fee on a contracted bid — is spelled out in the <a href="#terms" data-legal="terms">Terms of Service</a>.</p>
             <h3>How do payments work?</h3>
-            <p>Pro subscriptions and the fee on a winning bid are billed through Stripe. The money for the job itself is handled directly between the homeowner and the pro — the platform doesn't process job payments yet.</p>
+            <p>Pro subscriptions and the fee on a contracted bid are billed through Stripe. The money for the job itself is handled directly between the homeowner and the pro — the platform doesn't process job payments yet.</p>
             <h3>When is the site down for maintenance?</h3>
             <p>Every Sunday night at 12:00 AM Central, the site shuts down automatically for maintenance — bug fixes and capacity checks — and comes back at full capacity.</p>
           </div>
@@ -766,7 +766,7 @@
         <div class="f-in">
           <span class="logo-lockup logo-lockup-footer" role="img" aria-label="DFW Job Bid"><span class="dfw">DFW</span><span class="job">JOB BID</span></span>
           <div style="max-width:480px">
-            Post the job. Local pros bid. You pick the winner.<br />
+            Post the job. Local pros bid. You make the contract.<br />
             A <b>Bearden Business Solutions</b> platform · Sibling product: <a href="https://opsblend2.com" target="_blank" rel="noopener">OPSBLEND²</a>, the CRM for service businesses.
           </div>
           <nav class="f-links" aria-label="Site">
@@ -916,8 +916,8 @@
         <h3 id="vacTitle">Before you dive in — the Top 10 vacation drawing</h3>
         <p class="ctx" id="vacCtx"></p>
         <div class="vac-card" style="margin-top:0">
-          <h3>Top 10 at year end → entered to win</h3>
-          <p><b>7 days</b> away · <b>hotel and airfare paid</b> by DFW Job Bid · winner picks from <b>3 choice destinations</b> (to be announced). Earned on merit — won jobs and the reviews on them. Nothing to buy, no way to skip the line.</p>
+          <h3>Top 10 at year end → entered in the drawing</h3>
+          <p><b>7 days</b> away · <b>hotel and airfare paid</b> by DFW Job Bid · the pro drawn picks from <b>3 choice destinations</b> (to be announced). Earned on merit — completed contracts and the reviews on them. Nothing to buy, no way to skip the line.</p>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
           <button class="btn btn-red" id="vacBtn" type="button">Got it — let's go</button>
@@ -1105,7 +1105,7 @@
           document.querySelectorAll(".chip[data-filter]").forEach(function(c){ c.setAttribute("aria-pressed", c.getAttribute("data-filter") === f ? "true" : "false"); });
         }
 
-        /* ---------- pro directory: reviews only count from jobs won via bid + completed ---------- */
+        /* ---------- pro directory: reviews only count from jobs contracted via bid + completed ---------- */
         var BADGE_ICONS = {
           star:'<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>',
           shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.2 8.2-7 10-3.8-1.8-7-5-7-10V6z"/></svg>',
@@ -1133,8 +1133,8 @@
         function levelBoxHTML(pro){
           var li = levelInfo(pro.points);
           var tail = li.max
-            ? '<p>Level 20 — the top. ' + li.pts.toLocaleString("en-US") + ' system points, earned from won jobs and their reviews.</p>'
-            : '<p>' + li.pts.toLocaleString("en-US") + ' system points · ' + (li.next - li.pts).toLocaleString("en-US") + ' points to Level ' + (li.lvl + 1) + '. Points come from completed won jobs, their review stars, and repeat customers — and every level costs more than the last.</p>';
+            ? '<p>Level 20 — the top. ' + li.pts.toLocaleString("en-US") + ' system points, earned from completed contracts and their reviews.</p>'
+            : '<p>' + li.pts.toLocaleString("en-US") + ' system points · ' + (li.next - li.pts).toLocaleString("en-US") + ' points to Level ' + (li.lvl + 1) + '. Points come from completed contracts, their review stars, and repeat customers — and every level costs more than the last.</p>';
           return '<div class="lvl-top"><span>System level <b>Level ' + li.lvl + ' of 20</b></span><span>' + li.pct + '% to next level</span></div>' +
                  '<div class="lvl-bar"><i style="width:' + li.pct + '%"></i></div>' + tail;
         }
@@ -1158,10 +1158,10 @@
               seen[r.who] = true;
             }
           });
-          if(st.avg >= 4.8 && st.n >= 4) out.push({ icon:"star", cls:" top", label:"Top Rated", title:"Badge earned: average rating of 4.8 or higher across reviews from jobs won on DFW Job Bid" });
-          if(st.five >= 3) out.push({ icon:"check", cls:"", label:"Five-Star Finisher", title:"Badge earned: three or more five-star reviews from jobs won on DFW Job Bid" });
+          if(st.avg >= 4.8 && st.n >= 4) out.push({ icon:"star", cls:" top", label:"Top Rated", title:"Badge earned: average rating of 4.8 or higher across reviews from contracted jobs on DFW Job Bid" });
+          if(st.five >= 3) out.push({ icon:"check", cls:"", label:"Five-Star Finisher", title:"Badge earned: three or more five-star reviews from contracted jobs on DFW Job Bid" });
           if(repeat) out.push({ icon:"repeat", cls:"", label:"Repeat Happy Customers", title:"Badge earned: the same homeowner hired this pro again through the feed and rated the work 4 stars or higher" });
-          if(st.n >= 3) out.push({ icon:"medal", cls:"", label:st.n + " Won-Job Reviews", title:"Badge earned: reviews collected from jobs won with a bid and completed on DFW Job Bid" });
+          if(st.n >= 3) out.push({ icon:"medal", cls:"", label:st.n + " Contract Reviews", title:"Badge earned: reviews collected from jobs contracted through a bid and completed on DFW Job Bid" });
           return out;
         }
         function standingBadges(pro){
@@ -1183,7 +1183,7 @@
         }
         function reviewHTML(r){
           return '<div class="review"><b>' + starsStr(r.stars) + ' “' + r.text + '”</b>' +
-            '<p>— ' + r.who + ', ' + r.city + ' · Job: ' + r.job + '<span class="won-tag">Won via bid · Completed</span></p></div>';
+            '<p>— ' + r.who + ', ' + r.city + ' · Job: ' + r.job + '<span class="contract-tag">Contract · Completed</span></p></div>';
         }
 
         var FEATURED_REVIEWS = [
@@ -1199,8 +1199,8 @@
         (function renderFeatured(){
           var st = statsFor(FEATURED_REVIEWS);
           document.getElementById("featRating").textContent = st.avg.toFixed(1);
-          document.getElementById("featStars").setAttribute("aria-label", "Rated " + st.avg.toFixed(1) + " out of 5 from " + st.n + " reviews of won jobs");
-          document.getElementById("featReviewCount").textContent = "· " + st.n + " reviews — all from won jobs";
+          document.getElementById("featStars").setAttribute("aria-label", "Rated " + st.avg.toFixed(1) + " out of 5 from " + st.n + " reviews of contracted jobs");
+          document.getElementById("featReviewCount").textContent = "· " + st.n + " reviews — all from contracted jobs";
           document.getElementById("featBadges").innerHTML = badgeHTML(allBadges(FEATURED_PRO));
           document.getElementById("featReviews").innerHTML = FEATURED_REVIEWS.map(reviewHTML).join("");
         })();
@@ -1248,12 +1248,12 @@
           card.innerHTML =
             '<div class="pro-top"><div class="avatar' + (pr.or ? " or" : "") + '">' + pr.initials + '</div>' +
             '<div><button type="button" class="pro-link" data-profile="' + pr.id + '" style="font-family:Archivo;font-size:1.08rem">' + pr.name + '</button><br />' +
-            '<span class="stars" aria-label="Rated ' + st.avg.toFixed(1) + ' out of 5 from ' + st.n + ' reviews of won jobs">★★★★★</span> <b>' + st.avg.toFixed(1) + '</b> <span style="color:var(--muted);font-weight:600">· ' + st.n + ' won-job reviews</span></div>' +
+            '<span class="stars" aria-label="Rated ' + st.avg.toFixed(1) + ' out of 5 from ' + st.n + ' reviews of contracted jobs">★★★★★</span> <b>' + st.avg.toFixed(1) + '</b> <span style="color:var(--muted);font-weight:600">· ' + st.n + ' contract reviews</span></div>' +
             '<span class="sample-tag">Sample pro</span></div>' +
             '<div class="pro-stats"><div><b>' + pr.jobs + '</b><small>jobs completed</small></div><div><b>' + pr.resp + '</b><small>avg. response</small></div><div><b>' + pr.area.split(" · ")[0] + '</b><small>service area</small></div></div>' +
             '<div class="trades">' + pr.trades.map(function(t){ return '<span class="meta-chip">' + t + '</span>'; }).join("") + '</div>' +
             '<div class="badges" style="margin-top:12px">' + badgeHTML(allBadges(pr)) + '</div>' +
-            '<p style="font-family:Archivo;font-weight:800;font-size:.92rem;margin:16px 0 0">Latest won-job review</p>' +
+            '<p style="font-family:Archivo;font-weight:800;font-size:.92rem;margin:16px 0 0">Latest contract review</p>' +
             reviewHTML(pr.reviews[0]) +
             '<div style="margin-top:14px;display:flex;gap:9px;flex-wrap:wrap"><button type="button" class="btn btn-navy btn-sm" data-profile="' + pr.id + '">View profile</button><button type="button" class="btn btn-ghost btn-sm save-btn" data-save="' + pr.id + '" aria-pressed="false">Save pro</button></div>';
           proDir.appendChild(card);
@@ -1280,8 +1280,8 @@
           if(!pro) return;
           var st = statsFor(pro.reviews || []);
           var ratingLine = st.n
-            ? '<span class="stars">★★★★★</span> <b>' + st.avg.toFixed(1) + '</b> <span style="color:var(--muted);font-weight:600">· ' + st.n + ' reviews — all from won jobs</span>'
-            : '<span style="color:var(--muted);font-weight:600">No won-job reviews yet — a rating appears after the first job won here is completed and reviewed.</span>';
+            ? '<span class="stars">★★★★★</span> <b>' + st.avg.toFixed(1) + '</b> <span style="color:var(--muted);font-weight:600">· ' + st.n + ' reviews — all from contracted jobs</span>'
+            : '<span style="color:var(--muted);font-weight:600">No contract reviews yet — a rating appears after the first contracted job here is completed and reviewed.</span>';
           var reviewsHtml = (pro.reviews || []).length
             ? pro.reviews.map(reviewHTML).join("")
             : '<p style="color:var(--muted)">No rating history yet.</p>';
@@ -1292,7 +1292,7 @@
             '<div class="badges" style="margin-top:14px">' + badgeHTML(allBadges(pro)) + '</div>' +
             '<div class="pro-stats"><div><b>' + pro.jobs + '</b><small>jobs completed</small></div><div><b>' + pro.resp + '</b><small>avg. response</small></div><div><b>' + esc(pro.area.split(" · ")[0]) + '</b><small>service area</small></div></div>' +
             '<div class="trades">' + pro.trades.map(function(t){ return '<span class="meta-chip">' + esc(t) + '</span>'; }).join("") + '</div>' +
-            '<h3 style="font-size:1.05rem;font-weight:900;margin-top:20px">Rating history — reviews from won jobs</h3>' +
+            '<h3 style="font-size:1.05rem;font-weight:900;margin-top:20px">Rating history — reviews from contracts</h3>' +
             reviewsHtml +
             '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">' +
               (pro.id === "me"
@@ -1335,7 +1335,7 @@
             var pro = proById(id);
             if(!pro) return "";
             var st = statsFor(pro.reviews || []);
-            return '<li><span><b>' + esc(pro.name) + '</b><br /><span style="color:var(--muted);font-weight:600;font-size:.9rem">Level ' + levelInfo(pro.points).lvl + ' · ' + pro.level + ' · on DFW Job Bid since ' + pro.since + (st.n ? ' · ★ ' + st.avg.toFixed(1) + ' (' + st.n + ' won-job reviews)' : '') + ' · ' + esc(pro.area) + '</span></span><span class="amt"><button type="button" class="btn btn-navy btn-sm" data-profile="' + pro.id + '">View profile</button></span></li>';
+            return '<li><span><b>' + esc(pro.name) + '</b><br /><span style="color:var(--muted);font-weight:600;font-size:.9rem">Level ' + levelInfo(pro.points).lvl + ' · ' + pro.level + ' · on DFW Job Bid since ' + pro.since + (st.n ? ' · ★ ' + st.avg.toFixed(1) + ' (' + st.n + ' contract reviews)' : '') + ' · ' + esc(pro.area) + '</span></span><span class="amt"><button type="button" class="btn btn-navy btn-sm" data-profile="' + pro.id + '">View profile</button></span></li>';
           }).join("");
         }
         var SAMPLE_CONTACTS = [
@@ -1359,7 +1359,7 @@
           var st = statsFor(pro.reviews || []), li = levelInfo(pro.points);
           return '<li><span class="stand-rank">' + rank + '</span>' +
             '<span class="stand-main"><button type="button" class="pro-link" data-profile="' + pro.id + '">' + esc(pro.name) + '</button>' +
-            '<small>Level ' + li.lvl + ' of 20 · ' + pro.level + ' · since ' + pro.since + (st.n ? ' · ★ ' + st.avg.toFixed(1) + ' from ' + st.n + ' won-job reviews' : '') + '</small></span>' +
+            '<small>Level ' + li.lvl + ' of 20 · ' + pro.level + ' · since ' + pro.since + (st.n ? ' · ★ ' + st.avg.toFixed(1) + ' from ' + st.n + ' contract reviews' : '') + '</small></span>' +
             '<span class="stand-pts">' + (pro.points || 0).toLocaleString("en-US") + ' pts</span></li>';
         }
         (function renderLeaderboard(){
@@ -1373,7 +1373,7 @@
           list.innerHTML = html;
         })();
         var ADMIN_QUESTIONS = [
-          { who:"Denise R.", kind:"Homeowner · Fort Worth", q:"My winning pro finished Friday — where do I leave his review?", status:"Open" },
+          { who:"Denise R.", kind:"Homeowner · Fort Worth", q:"The pro on my contract finished Friday — where do I leave his review?", status:"Open" },
           { who:"Rigo F. — Rigo Fencing Co.", kind:"Pro · Arlington", q:"How do level points work on repeat customers? My second job for the same homeowner just completed.", status:"Open" },
           { who:"Sarah M.", kind:"Homeowner · Fort Worth", q:"Can I post the same job in two areas if the house is near the line?", status:"Open" },
           { who:"Tom E. — Electrical", kind:"Pro · Fort Worth", q:"The Top 10 drawing — when are the 3 destinations announced?", status:"Answered" }
@@ -1386,7 +1386,7 @@
           var stats = [
             { n:"5", l:"pros on the board (samples)" },
             { n:String(POSTS.length), l:"jobs on the feed" },
-            { n:String(totalReviews), l:"won-job reviews counted" },
+            { n:String(totalReviews), l:"contract reviews counted" },
             { n:String(open), l:"subscriber questions open" },
             { n:"Level 20", l:"top contractor level — nobody's there yet" },
             { n:"Sun 12:00 AM", l:"next auto maintenance window" }
@@ -1457,7 +1457,7 @@
         var vacBack = document.getElementById("vacBack");
         function openVacPop(){
           if(!lastSignup) return;
-          document.getElementById("vacCtx").textContent = "Welcome aboard, " + lastSignup.name.split(" ")[0] + ". Every job you win on DFW Job Bid earns system points and climbs your level — and at the end of the year, the top 10 pros in the standings are entered into a drawing for a 7-day vacation, with hotel and airfare paid by DFW Job Bid. The winner picks from 3 choice destinations (to be announced). It's merit-based only — standings come from real won jobs and their reviews, and a spot can't be bought.";
+          document.getElementById("vacCtx").textContent = "Welcome aboard, " + lastSignup.name.split(" ")[0] + ". Every contract you land on DFW Job Bid earns system points and climbs your level — and at the end of the year, the top 10 pros in the standings are entered into a drawing for a 7-day vacation, with hotel and airfare paid by DFW Job Bid. The pro drawn picks from 3 choice destinations (to be announced). It's merit-based only — standings come from real completed contracts and their reviews, and a spot can't be bought.";
           vacBack.classList.add("open");
           document.body.style.overflow = "hidden";
         }
@@ -1479,7 +1479,7 @@
             var me = myProProfile();
             title.textContent = "Your contractor level";
             body.innerHTML = '<div class="lvl-box" style="margin-top:0">' + levelBoxHTML(me) + '</div>' +
-              '<p style="color:var(--muted);margin:10px 0 0">Finish won jobs and collect their reviews to earn points. The top 10 pros at year end are entered in the vacation drawing.</p>';
+              '<p style="color:var(--muted);margin:10px 0 0">Finish contracted jobs and collect their reviews to earn points. The top 10 pros at year end are entered in the vacation drawing.</p>';
           } else {
             title.textContent = "Your reviewer rating";
             body.innerHTML = '<p style="margin:0"><span class="reviewer-chip">★ New Reviewer</span></p>' +
@@ -1526,7 +1526,7 @@
               document.getElementById("bidAsName").textContent = asPro.name;
               document.getElementById("bidAsAvatar").textContent = asPro.initials;
               var asSt = statsFor(asPro.reviews);
-              document.getElementById("bidAsSub").textContent = "Level " + levelInfo(asPro.points).lvl + " · " + asPro.level + " · on DFW Job Bid since " + asPro.since + (asSt.n ? " · ★ " + asSt.avg.toFixed(1) + " from " + asSt.n + " won-job reviews" : " · no won-job reviews yet");
+              document.getElementById("bidAsSub").textContent = "Level " + levelInfo(asPro.points).lvl + " · " + asPro.level + " · on DFW Job Bid since " + asPro.since + (asSt.n ? " · ★ " + asSt.avg.toFixed(1) + " from " + asSt.n + " contract reviews" : " · no contract reviews yet");
             } else {
               asField.style.display = "none";
               nameField.style.display = "block";
